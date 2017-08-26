@@ -1,15 +1,42 @@
 body {
     font: 12pt sans-serif;
     background-color: $bg;
-    margin: 0;
-    padding: 0;
+    display: table;
+    width: 100%;
 }
+
+/* sticky footer */
+html, body { height: 100%; margin: 0; padding: 0; }
+header, main, footer { display: table-row; }
+header, footer { height: 1px; }
+main { height: auto; }
 
 header > div, main > div, footer > div {
     max-width: 800px;
     margin: 0px auto;
+    padding: 1em;
+    box-sizing: border-box;
 }
 
-header {
+header, footer {
     background-color: $bg1;
 }
+
+header img#logo {
+    float: left;
+}
+
+header div#account {
+    overflow: auto;
+    text-align: right;
+    min-width: 18em;
+    margin-bottom: 1em;
+}
+
+header nav {
+    text-align: center;
+    clear: both;
+}
+
+a, nav a:visited { color: $blue; }
+a:visited { color: $purple; }
