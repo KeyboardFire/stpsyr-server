@@ -1,0 +1,14 @@
+[package]
+name = "stpsyr-server"
+version = "0.1.0"
+authors = ["KeyboardFire <andy@keyboardfire.com>"]
+build = "compile_sass.rs"
+
+[dependencies]
+stpsyr = "*"
+iron = "0.5.1"
+router = "0.5.1"
+mount = "0.3.0"
+
+[build-dependencies]
+sass-rs = "0.1.0"
