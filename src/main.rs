@@ -12,7 +12,26 @@ use mount::Mount;
 
 mod handlers;
 
+extern crate simplelog;
+use simplelog::{CombinedLogger, TermLogger, WriteLogger, LogLevelFilter, Config};
+
+extern crate logger;
+use logger::Logger;
+
+use std::fs::OpenOptions;
+
 fn main() {
+    CombinedLogger::init(
+        vec![
+            TermLogger::new(LogLevelFilter::Info, Config::default()).unwrap(),
+            WriteLogger::new(LogLevelFilter::Info, Config::default(),
+                OpenOptions::new().append(true)
+                                  .create(true)
+                                  .open("log.txt")
+                                  .unwrap())
+        ]
+    ).unwrap();
+
     let mut router = Router::new();
     router.get("/", handlers::handle_html("home"), "home");
 
@@ -23,7 +42,10 @@ fn main() {
     mount.mount("/svg", handlers::handle_static("svg/", TopLevel::Image, SubLevel::Ext("svg+xml".to_string())));
     mount.mount("/", router);
 
-    let chain = Chain::new(mount);
+    let mut chain = Chain::new(mount);
+    let (logger_before, logger_after) = Logger::new(None);
+    chain.link_before(logger_before);
+    chain.link_after(logger_after);
 
     Iron::new(chain).http("localhost:3000").unwrap();
 }

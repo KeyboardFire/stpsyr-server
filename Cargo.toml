@@ -9,6 +9,8 @@ stpsyr = "*"
 iron = "0.5.1"
 router = "0.5.1"
 mount = "0.3.0"
+logger = "0.3.0"
+simplelog = "0.4.2"
 
 [build-dependencies]
 sass-rs = "0.1.0"

@@ -3,9 +3,11 @@ name = "stpsyr-server"
 version = "0.1.0"
 dependencies = [
  "iron 0.5.1 (registry+https://github.com/rust-lang/crates.io-index)",
+ "logger 0.3.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "mount 0.3.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "router 0.5.1 (registry+https://github.com/rust-lang/crates.io-index)",
  "sass-rs 0.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "simplelog 0.4.2 (registry+https://github.com/rust-lang/crates.io-index)",
  "stpsyr 0.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
@@ -263,6 +265,16 @@ version = "0.3.8"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 
 [[package]]
+name = "logger"
+version = "0.3.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+dependencies = [
+ "iron 0.5.1 (registry+https://github.com/rust-lang/crates.io-index)",
+ "log 0.3.8 (registry+https://github.com/rust-lang/crates.io-index)",
+ "time 0.1.38 (registry+https://github.com/rust-lang/crates.io-index)",
+]
+
+[[package]]
 name = "matches"
 version = "0.1.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -422,6 +434,16 @@ dependencies = [
 name = "sequence_trie"
 version = "0.2.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
+
+[[package]]
+name = "simplelog"
+version = "0.4.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+dependencies = [
+ "log 0.3.8 (registry+https://github.com/rust-lang/crates.io-index)",
+ "term 0.4.6 (registry+https://github.com/rust-lang/crates.io-index)",
+ "time 0.1.38 (registry+https://github.com/rust-lang/crates.io-index)",
+]
 
 [[package]]
 name = "stpsyr"
@@ -667,6 +689,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 "checksum libc 0.2.26 (registry+https://github.com/rust-lang/crates.io-index)" = "30885bcb161cf67054244d10d4a7f4835ffd58773bc72e07d35fecf472295503"
 "checksum libloading 0.4.0 (registry+https://github.com/rust-lang/crates.io-index)" = "be99f814beb3e9503a786a592c909692bb6d4fc5a695f6ed7987223acfbd5194"
 "checksum log 0.3.8 (registry+https://github.com/rust-lang/crates.io-index)" = "880f77541efa6e5cc74e76910c9884d9859683118839d6a1dc3b11e63512565b"
+"checksum logger 0.3.0 (registry+https://github.com/rust-lang/crates.io-index)" = "92ff59f9a797ff30f711fe6b8489ad424953cee17c206de77d3c5957a9182ba7"
 "checksum matches 0.1.6 (registry+https://github.com/rust-lang/crates.io-index)" = "100aabe6b8ff4e4a7e32c1c13523379802df0772b82466207ac25b013f193376"
 "checksum memchr 1.0.1 (registry+https://github.com/rust-lang/crates.io-index)" = "1dbccc0e46f1ea47b9f17e6d67c5a96bd27030519c519c9c91327e31275a47b4"
 "checksum mime 0.2.6 (registry+https://github.com/rust-lang/crates.io-index)" = "ba626b8a6de5da682e1caa06bdb42a335aee5a84db8e5046a3e8ab17ba0a3ae0"
@@ -689,6 +712,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 "checksum sass-rs 0.1.0 (registry+https://github.com/rust-lang/crates.io-index)" = "b48ba5cee7b5aa2291cdc7b1138215e7f11e09a2f725a57318149e88837a7b93"
 "checksum sass-sys 0.4.0 (registry+https://github.com/rust-lang/crates.io-index)" = "49e6025ff142eb235157aea8d6ee8085d9f5b80e280cb54b911f6b778e64075a"
 "checksum sequence_trie 0.2.1 (registry+https://github.com/rust-lang/crates.io-index)" = "c915714ca833b1d4d6b8f6a9d72a3ff632fe45b40a8d184ef79c81bec6327eed"
+"checksum simplelog 0.4.2 (registry+https://github.com/rust-lang/crates.io-index)" = "2c3a63f2b74bc3359ed6050da62e32cc0e10a162c4f62a0c1d80cd89d432234b"
 "checksum stpsyr 0.1.0 (registry+https://github.com/rust-lang/crates.io-index)" = "d720f45d1e3133678bca732a7df29257c8174348820c2aded9e5891c8f3290c5"
 "checksum strsim 0.6.0 (registry+https://github.com/rust-lang/crates.io-index)" = "b4d15c810519a91cf877e7e36e63fe068815c678181439f2f29e2562147c3694"
 "checksum syntex 0.58.1 (registry+https://github.com/rust-lang/crates.io-index)" = "a8f5e3aaa79319573d19938ea38d068056b826db9883a5d47f86c1cecc688f0e"
