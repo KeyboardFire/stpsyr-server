@@ -1,4 +1,15 @@
 body {
     font: 12pt sans-serif;
-    background: $bg;
+    background-color: $bg;
+    margin: 0;
+    padding: 0;
+}
+
+header > div, main > div, footer > div {
+    max-width: 800px;
+    margin: 0px auto;
+}
+
+header {
+    background-color: $bg1;
 }

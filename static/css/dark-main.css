@@ -1,3 +1,12 @@
 body {
   font: 12pt sans-serif;
-  background: #181818; }
+  background-color: #181818;
+  margin: 0;
+  padding: 0; }
+
+header > div, main > div, footer > div {
+  max-width: 800px;
+  margin: 0px auto; }
+
+header {
+  background-color: #282828; }
