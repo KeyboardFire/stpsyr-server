@@ -38,5 +38,9 @@ header nav {
     clear: both;
 }
 
-a, nav a:visited { color: $blue; }
+footer {
+    text-align: right;
+}
+
+a, header a:visited { color: $blue; }
 a:visited { color: $purple; }
