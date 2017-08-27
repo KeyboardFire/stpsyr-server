@@ -15,9 +15,14 @@ impl iron_sessionstorage::Value for SessionToken {
 pub fn handle_html(name: &'static str)
         -> impl Fn(&mut Request) -> IronResult<Response> {
     move |req| {
+        let ext = if match name {
+            "users" | "games" => !req.url.path()[0].is_empty(),
+            _ => false
+        } { "-ext" } else { "" };
+
         let mut contents = format!("{}{}{}",
             slurp("static/html/header.html")?,
-            slurp(format!("static/html/{}.html", name))?,
+            slurp(format!("static/html/{}{}.html", name, ext))?,
             slurp("static/html/footer.html")?);
 
         let conn = req.get::<persistent::Write<Db>>().unwrap();

@@ -50,8 +50,11 @@ fn main() {
 
     let mut router = Router::new();
     router.get("/", handlers::handle_html("home"), "home");
+    router.get("/login", handlers::handle_html("login"), "login");
 
     let mut mount = Mount::new();
+    mount.mount("/users", handlers::handle_html("users"));
+    mount.mount("/games", handlers::handle_html("games"));
     mount.mount("/css", handlers::handle_css);
     mount.mount("/js", handlers::handle_static("js/", TopLevel::Text, SubLevel::Javascript));
     mount.mount("/png", handlers::handle_static("png/", TopLevel::Image, SubLevel::Png));
