@@ -5,7 +5,7 @@ use iron_sessionstorage::traits::*;
 use persistent;
 use Db;
 
-struct SessionToken(String);
+pub struct SessionToken(pub String);
 impl iron_sessionstorage::Value for SessionToken {
     fn get_key() -> &'static str { "sessiontoken" }
     fn into_raw(self) -> String { self.0 }
@@ -33,9 +33,9 @@ pub fn handle_html(name: &'static str)
                 let rows = conn.query("
                     SELECT u.id, u.username
                     FROM users u
-                    WHERE t.token = $1
                     INNER JOIN tokens t
-                    ON u.id = t.userid", &[&token.0]).unwrap();
+                    ON u.id = t.userid
+                    WHERE t.token = $1", &[&token.0]).unwrap();
                 if rows.is_empty() {
                     req.session().clear()?;
                     (None, None)
@@ -56,7 +56,7 @@ pub fn handle_html(name: &'static str)
                     format!("logged in as <a href='/users/{}'>{}</a>",
                             userid.unwrap(), username)
                 } else {
-                    "<a href='/login'>login</a>".to_string()
+                    "<a href='/login'>login or register</a>".to_string()
                 },
                 _ => panic!("weird thing")
             };

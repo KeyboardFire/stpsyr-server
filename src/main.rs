@@ -26,6 +26,8 @@ use iron_sessionstorage::backends::SignedCookieBackend;
 
 extern crate persistent;
 
+extern crate params;
+
 extern crate postgres;
 use postgres::{Connection, TlsMode};
 
@@ -51,6 +53,8 @@ fn main() {
     let mut router = Router::new();
     router.get("/", handlers::handle_html("home"), "home");
     router.get("/login", handlers::handle_html("login"), "login");
+    router.post("/login", handlers::handle_login, "loginpost");
+    router.post("/register", handlers::handle_register, "register");
 
     let mut mount = Mount::new();
     mount.mount("/users", handlers::handle_html("users"));

@@ -42,5 +42,19 @@ footer {
     text-align: right;
 }
 
+form > div {
+    margin: 0.5em 0;
+}
+
+form {
+    margin: 2em 0;
+}
+
+input {
+    background-color: $bg2;
+    border: 1px solid $bg3;
+    border-radius: 0.2em;
+}
+
 a, header a:visited { color: $blue; }
 a:visited { color: $purple; }
