@@ -12,6 +12,7 @@ mount = "0.3.0"
 logger = "0.3.0"
 simplelog = "0.4.2"
 iron-sessionstorage = "0.6.6"
+postgres = "0.15.1"
 
 [build-dependencies]
-sass-rs = "0.1.0"
+sass-rs = "0.2.0"
