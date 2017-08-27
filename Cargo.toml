@@ -8,10 +8,11 @@ build = "compile_sass.rs"
 stpsyr = "*"
 iron = "0.5.1"
 router = "0.5.1"
+iron-sessionstorage = "0.6.6"
 mount = "0.3.0"
+persistent = "0.3.0"
 logger = "0.3.0"
 simplelog = "0.4.2"
-iron-sessionstorage = "0.6.6"
 postgres = "0.15.1"
 
 [build-dependencies]

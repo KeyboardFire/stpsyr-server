@@ -1,8 +1,10 @@
 #![feature(conservative_impl_trait)]
+#![feature(splice)]
 
 extern crate iron;
 use iron::prelude::*;
 use iron::mime::{TopLevel, SubLevel};
+use iron::typemap::Key;
 
 extern crate router;
 use router::Router;
@@ -22,8 +24,17 @@ extern crate iron_sessionstorage;
 use iron_sessionstorage::SessionStorage;
 use iron_sessionstorage::backends::SignedCookieBackend;
 
+extern crate persistent;
+
+extern crate postgres;
+use postgres::{Connection, TlsMode};
+
 use std::fs::{File, OpenOptions};
 use std::io::Read;
+use std::env;
+
+pub struct Db;
+impl Key for Db { type Value = Connection; }
 
 fn main() {
     CombinedLogger::init(
@@ -48,13 +59,39 @@ fn main() {
     mount.mount("/", router);
 
     let mut chain = Chain::new(mount);
+
     let (logger_before, logger_after) = Logger::new(None);
+
     let mut secret_file = File::open("secret")
         .expect("please provide a secret in file 'secret' for signing cookies");
     let mut secret = Vec::new();
     secret_file.read_to_end(&mut secret).unwrap();
+
+    let conn = Connection::connect("postgres://postgres@localhost",
+                                   TlsMode::None).unwrap();
+    let args: Vec<String> = env::args().collect();
+    if args.contains(&String::from("-r")) {
+        conn.batch_execute("
+        DROP TABLE IF EXISTS users CASCADE;
+        DROP TABLE IF EXISTS tokens CASCADE;
+
+        CREATE TABLE users (
+        id          SERIAL PRIMARY KEY,
+        username    TEXT NOT NULL UNIQUE,
+        salt        BYTEA NOT NULL,
+        hash        BYTEA NOT NULL
+        );
+
+        CREATE TABLE tokens (
+        userid      INT NOT NULL,
+        token       TEXT NOT NULL
+        );
+        ").unwrap();
+    }
+
     chain.link_before(logger_before);
     chain.link_around(SessionStorage::new(SignedCookieBackend::new(secret)));
+    chain.link(persistent::Write::<Db>::both(conn));
     chain.link_after(logger_after);
 
     Iron::new(chain).http("localhost:3000").unwrap();
