@@ -18,7 +18,12 @@ use simplelog::{CombinedLogger, TermLogger, WriteLogger, LogLevelFilter, Config}
 extern crate logger;
 use logger::Logger;
 
-use std::fs::OpenOptions;
+extern crate iron_sessionstorage;
+use iron_sessionstorage::SessionStorage;
+use iron_sessionstorage::backends::SignedCookieBackend;
+
+use std::fs::{File, OpenOptions};
+use std::io::Read;
 
 fn main() {
     CombinedLogger::init(
@@ -44,7 +49,12 @@ fn main() {
 
     let mut chain = Chain::new(mount);
     let (logger_before, logger_after) = Logger::new(None);
+    let mut secret_file = File::open("secret")
+        .expect("please provide a secret in file 'secret' for signing cookies");
+    let mut secret = Vec::new();
+    secret_file.read_to_end(&mut secret).unwrap();
     chain.link_before(logger_before);
+    chain.link_around(SessionStorage::new(SignedCookieBackend::new(secret)));
     chain.link_after(logger_after);
 
     Iron::new(chain).http("localhost:3000").unwrap();
